@@ -18,6 +18,8 @@ namespace Math_Quiz
         int addend1;
         int addend2;
         int timeLeft;
+        int minuend;
+        int subtrahend;
         //Start quiz and timer, fill all prblems
         public void StartTheQuiz()
         {
@@ -28,6 +30,13 @@ namespace Math_Quiz
             plusRightLabel.Text = addend2.ToString();
 
             sum.Value = 0;
+
+            // Fill in the subtraction problem.
+            minuend = randomizer.Next(1, 101);
+            subtrahend = randomizer.Next(1, minuend);
+            minusLeftLabel.Text = minuend.ToString();
+            minusRightLabel.Text = subtrahend.ToString();
+            difference.Value = 0;
 
             // Start the timer.
             timeLeft = 30;
@@ -69,15 +78,18 @@ namespace Math_Quiz
                 timeLabel.Text = "Time's up!";
                 MessageBox.Show("You didn't finish in time.", "Sorry!");
                 sum.Value = addend1 + addend2;
+                difference.Value = minuend - subtrahend;
                 startButton.Enabled = true;
             }
         }
 
         private bool CheckTheAnswer()
         {
-            if (addend1 + addend2 == sum.Value)
+            if ((addend1 + addend2 == sum.Value)
+                && (minuend - subtrahend == difference.Value))
                 return true;
-            else return false;
+            else
+                return false;
         }
 
         private void answer_Enter(object sender, EventArgs e)
